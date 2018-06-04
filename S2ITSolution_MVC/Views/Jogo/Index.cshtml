@@ -1,0 +1,52 @@
+﻿@model IEnumerable<S2ITSolution_MVC.ViewModels.JogoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Jogos</h2>
+
+<p>
+    @Html.ActionLink("Novo Cadastro", "Create")
+</p>
+<table class="table">
+    @if (Model.Count() > 0)
+    {
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NM_Jogo)
+        </th>
+        <th>
+            Ações
+        </th>
+    </tr>
+
+        foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NM_Jogo)
+        </td>
+        <td>
+            <div class="btn-group">
+                <span class="glyphicon glyphicon-cog menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("Edit", new { id = item.ID_Jogo })"><i class="fa fa-pencil fa-fw"></i>&nbsp;Editar</a></li>
+                    <li><a href="@Url.Action("Delete", new { id = item.ID_Jogo })"><i class="fa fa-remove fa-fw"></i>&nbsp;Deletar</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="99">Nenhum jogo encontrado!</td>
+        </tr>
+    }
+
+
+
+</table>
