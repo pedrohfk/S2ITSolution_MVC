@@ -45,6 +45,7 @@ namespace S2ITSolution_MVC.Models
 
                 DataTable dt = db.ExecuteR(System.Data.CommandType.Text, cmd);
                 EmprestimoViewModel emp = null;
+                DateTime? DH_NULL = new Nullable<DateTime>();
 
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -52,7 +53,7 @@ namespace S2ITSolution_MVC.Models
                     _emp.ID_Emprestimo = Convert.ToInt32(dr["ID_Emprestimo"]);
                     _emp.ID_Jogo = Convert.ToInt32(dr["ID_Jogo"]);
                     _emp.ID_Amigo = Convert.ToInt32(dr["ID_Amigo"]);
-                    _emp.DH_Devolucao = Equals(dr["DH_Devolucao"]) ? Convert.ToDateTime(dr["DH_Devolucao"]) : DateTime.MinValue;
+                    _emp.DH_Devolucao = Equals(dr["DH_Devolucao"]) ? Convert.ToDateTime(dr["DH_Devolucao"]) : DH_NULL;
                     _emp.DH_Emprestimo = Convert.ToDateTime(dr["DH_Emprestimo"]);
 
                     emp = _emp;
@@ -90,9 +91,10 @@ namespace S2ITSolution_MVC.Models
             try
             {
                 db.ClearParameters();
+                db.AddParameters("@ID_Emprestimo", emp.ID_Emprestimo);
                 db.AddParameters("@DH_Devolucao", emp.DH_Devolucao);                
 
-                String cmd = "UPDATE dbo.Emprestimo SET DH_Devolucao = @DH_Devolucao WHERE ID_Empresimo = @ID_Empresimo";
+                String cmd = "UPDATE dbo.Emprestimo SET DH_Devolucao = @DH_Devolucao WHERE ID_Emprestimo = @ID_Emprestimo";
 
                 string result = db.ExecuteCUD(System.Data.CommandType.Text, cmd);
 
@@ -126,18 +128,16 @@ namespace S2ITSolution_MVC.Models
 
                 DataTable dt = db.ExecuteR(System.Data.CommandType.Text, cmd);
                 List<EmprestimoViewModel> lstEmp = new List<EmprestimoViewModel>();
-                DateTime? DH_NULL = new Nullable<DateTime>();
 
                 foreach (DataRow dr in dt.Rows)
                 {
-                    EmprestimoViewModel _emp = new EmprestimoViewModel();                 
-
+                    EmprestimoViewModel _emp = new EmprestimoViewModel();
                     _emp.ID_Emprestimo = Convert.ToInt32(dr["ID_Emprestimo"]);
                     _emp.ID_Jogo = Convert.ToInt32(dr["ID_Jogo"]);
                     _emp.NM_Jogo = Convert.ToString(dr["NM_Jogo"]);
                     _emp.ID_Amigo = Convert.ToInt32(dr["ID_Amigo"]);
                     _emp.NM_Amigo = Convert.ToString(dr["NM_Amigo"]);
-                    _emp.DH_Devolucao = Equals(dr["DH_Devolucao"]) ? Convert.ToDateTime(dr["DH_Devolucao"]) : DH_NULL;
+                    _emp.DH_Devolucao = Equals(dr["DH_Devolucao"]) ? Convert.ToDateTime(dr["DH_Devolucao"]) : DateTime.MinValue;
                     _emp.DH_Emprestimo = Convert.ToDateTime(dr["DH_Emprestimo"]);
 
                     lstEmp.Add(_emp);

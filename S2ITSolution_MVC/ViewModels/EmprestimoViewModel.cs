@@ -21,13 +21,11 @@ namespace S2ITSolution_MVC.ViewModels
         public int ID_Jogo { get; set; }
         public string NM_Jogo { get; set; }
 
-        [DisplayName("Data do Emprestimo")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd H:mm:ss}", ApplyFormatInEditMode = true)]
+        [DisplayName("Data do Emprestimo")]   
         public DateTime DH_Emprestimo { get; set; }
 
-        [DisplayName("Data da Devolucao")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd} H:mm:ss", ApplyFormatInEditMode = true)]
-        public Nullable<DateTime> DH_Devolucao { get; set; }
+        [DisplayName("Data da Devolucao")]    
+        public DateTime? DH_Devolucao { get; set; }
 
     }
 }
